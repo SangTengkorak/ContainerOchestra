@@ -12,3 +12,26 @@ docker run -p <LOCAL_PORT>:<DOCKER_PORT> <IMAGE_NAME>
 
 # Stop running docker container
 docker stop <CONTAINER_ID>
+
+# Re-start stopped docker container, container is running in background by default
+docker start <CONTAINER_ID>
+
+# Re-start stopped docker container, but in attached mode
+docker start -a <CONTAINER_NAME>
+
+# In docker run, container is running in attached mode by default, running in foreground
+
+# Docker run but containe run in detach mode
+docker run -d --name <CONTAINER_NAME> -p <LOCAL_PORT>:<DOCKER_PORT> <IMAGE_NAME>
+
+# Use attach mode to access running Docker container
+docker attach <CONTAINER_NAME>
+
+# View running containe logs
+docker logs <CONTAINER_NAME>
+
+# View running containe logs with attached mode
+docker logs -f <CONTAINER_NAME>
+
+# To run stopped containe in interactive mode
+docker start -a -i <CONTAINER_NAME>
