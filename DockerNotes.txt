@@ -1,0 +1,14 @@
+# View Docker running process
+docker ps
+
+# View Docker all created process
+docker ps -a
+
+# Run Docker with interactive mode
+docker run -it <IMAGE_NAME>
+
+# Run Docker with published port access
+docker run -p <LOCAL_PORT>:<DOCKER_PORT> <IMAGE_NAME>
+
+# Stop running docker container
+docker stop <CONTAINER_ID>
