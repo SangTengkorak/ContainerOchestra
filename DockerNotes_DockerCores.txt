@@ -1,3 +1,6 @@
+# Initial login to Dockerhub
+docker login
+
 # View Docker running process
 docker ps
 
@@ -62,3 +65,13 @@ copy from container: docker cp <CONTAINER_NAME>:/<FOLDER_NAME> <DIRECTORY_PATH>/
 docker build . -t python-bmi:1.0
 docker run --name python-bmi_cont -it python-bmi:1.0
 docker start -i python-bmi_cont
+
+# Rename existing image with new name
+docker tag <OLD_IMAGE_NAME>:<OLD_IMAGE_TAG> <>ACCOUNT_NAME>/<NEW_IMAGE_NAME>
+
+# Rename is actually make a clone with new name
+
+# Push image to repository
+docker push <ACCOUNT_NAME>/<REPOSITORY_IMAGE_NAME>
+
+# Docker pull alway download the latest image, so it can be use to update utilized image
