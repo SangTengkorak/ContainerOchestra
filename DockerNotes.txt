@@ -35,3 +35,30 @@ docker logs -f <CONTAINER_NAME>
 
 # To run stopped containe in interactive mode
 docker start -a -i <CONTAINER_NAME>
+
+# Remove stopped container, can be use to remove multiple container
+docker rm <CONTAINER_NAME> | docker rm <CONTAINER_NAME> <CONTAINER_NAME> <CONTAINER_NAME> ...
+
+# List Docker images with few details
+docker images
+
+# Remove unused Docker image
+docker rmi <IMAGE_ID>
+
+# Remove all unused images
+docker image prune -a
+
+# Run Docker with option to remove container when it stopped
+docker run -d -p 3000:80 --rm --name <CONTAINER_NAME> <IMAGE_NAME>
+
+# Inspect image details
+docker image Inspect
+
+# Copy file into & from running container
+copy into container: docker cp <DIRECTORY_PATH>/<FILE/s_NAME> <CONTAINER_NAME>:/<FOLDER_NAME>
+copy from container: docker cp <CONTAINER_NAME>:/<FOLDER_NAME> <DIRECTORY_PATH>/<FILE/s_NAME>
+
+# Challenge to run interactive docker container with python-app-bmi
+docker build . -t python-bmi:1.0
+docker run --name python-bmi_cont -it python-bmi:1.0
+docker start -i python-bmi_cont
