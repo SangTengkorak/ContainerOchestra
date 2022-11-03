@@ -1,0 +1,17 @@
+# Docker Volume is folder in user host machine that mapped into container, unlike container stored data that ephemeral, volume stored data is persistent by default
+# If not stated, Docker will create unanonymous volume that only exists as long container is running
+# Named volume held data in folder even when contaier is shutdown/ removed
+
+# Basic Docker volume operation
+docker volume -h
+example, display named volume list: docker volume ls
+
+# Create named volume that persist even when container is removed
+docker run -p 3000:80 -d --name <CONTAINER_NAME> --rm -v <VOLUME_NAME>:<PATH_INSIDE_THE_CONTAINER> <IMAGE_NAME>
+example: docker run -p 3000:80 -d --name feedback-node_vol_cont --rm -v feedback:/app/feedback feedback-node:volumes
+
+# Unlike Docker volume, Bind mounts are managed by user not automatically set by Docker
+# Bind mount work perfectly with editable data
+# Run Docker container with bind mount option
+docker run -p 3000:80 -d --name <CONTAINER_NAME> --rm -v <VOLUME_NAME>:<PATH_INSIDE_THE_CONTAINER> -v "<ABSOLUTE_PATH_TO_EDITABLE_FILE/FOLDER>:<DIR_PATH_IN_IMAGE>" <IMAGE_NAME>
+example: docker run -p 3000:80 -d --name feedback-node_vol_cont -v feedback:/app/feedback -v $(pwd):/app feedback-node:volumes
