@@ -14,4 +14,25 @@ example: docker run -p 3000:80 -d --name feedback-node_vol_cont --rm -v feedback
 # Bind mount work perfectly with editable data
 # Run Docker container with bind mount option
 docker run -p 3000:80 -d --name <CONTAINER_NAME> --rm -v <VOLUME_NAME>:<PATH_INSIDE_THE_CONTAINER> -v "<ABSOLUTE_PATH_TO_EDITABLE_FILE/FOLDER>:<DIR_PATH_IN_IMAGE>" <IMAGE_NAME>
-example: docker run -p 3000:80 -d --name feedback-node_vol_cont -v feedback:/app/feedback -v $(pwd):/app feedback-node:volumes
+
+# Without volume option in Docker image, we need to specify anonymous volume mapped to specific path to ensure that sepcific path isn't overwritten by bind mound
+example: docker run -p 3000:80 -d --name feedback-node_vol_cont -v feedback:/app/feedback -v $(pwd):/app -v /app/node_modules feedback-node:volumes
+
+# Bind mount works best for development, since it will update container frequently, for stable production, COPY method is better
+
+# By default, docker volume have read-write permission, to disable it add ":ro" after container path
+example:  docker run -d --rm -p 3000:80 --name feedback-app -v feedback-files:/app/feedback -v "$(pwd):/app" -v /app/node_modules -v /app/temp feedback-node:volumes
+
+# Create docker volume
+docker volume create [VOLUME_NAME]
+
+# Inspect docker volume
+docker volume inspect [VOLUME_NAME]
+
+# Remove docker volume
+docker volume rm [VOLUME_NAME]
+
+# Remove all unused volume
+docker volume prune
+
+# We could use .dockerignore to specify which files/folders excluded when build docker image
