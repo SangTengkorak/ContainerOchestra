@@ -1,0 +1,12 @@
+# To access localhost, known domain to docker engine is host.docker.internal
+# We could get running container IP address from <docker inspect container CONTAINER_NAME> command
+
+# Create a Docker network
+docker network create <DOCKER_NETWORK_NAME>
+example:  docker network create favorites-net
+
+# Run Docker continer with custom image
+example:  docker run -d --name mongodb --network favorites-net mongo
+
+# Docker is automaticly translate container IP address from its name during ongoing traffic
+# Container within the same network, could identify each other based on container name
