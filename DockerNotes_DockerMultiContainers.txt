@@ -1,0 +1,19 @@
+# Containerized mongodb
+docker run --name mongodb --rm -v data:/data/db -d --network goals-net -e MONGO_INITDB_ROOT_USERNAME=matjangkrik -e MONGO_INITDB_ROOT_PASSWORD=pow3ranger mongo
+OPTIONAL FOR UNCONTAINERIZD APP: docker run --name mongodb --rm -d -p 27017:270127 mongo
+
+# Containerized node app
+docker build . -t goals-node
+docker run --name goals-backend -v "/home/sangtengkorak/DockerKubernetes/Section5/multi-01-starting-setup/backend:/app" -v logs:/app/logs -v /app/node_modules -d --rm -p 80:80 --network goals-net -e MONGO_INITDB_ROOT_USERNAME=matjangkrik -e MONGO_INITDB_ROOT_PASSWORD=pow3ranger goals-node
+OR 
+docker run --name goals-backend -v "/home/sangtengkorak/DockerKubernetes/Section5/multi-01-starting-setup/backend:/app" -v logs:/app/logs -v /app/node_modules -d --rm -p 80:80 --network goals-net -e MONGODB_USERNAME=matjangkrik goals-node
+
+# Containerized front-end app
+docker build . -t goals-react
+docker run --name goals-fronted --rm --network goals-net -d -p 3000:3000 -v /home/sangtengkorak/DockerKubernetes/Section5/multi-01-starting-setup/frontend/src:/app/src goals-react
+
+# Connect all containerized apps in same network
+docker network create goals-net
+
+# When using Server - Client as a lab, we need to change <localhost> in backend/app.js to <SERVER_IP>
+# When using passsword on mongodb, ensure to remove previosly created volume
