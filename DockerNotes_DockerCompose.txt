@@ -1,0 +1,8 @@
+# Docker compose automatically run in detach mode and remove container when it stopped
+# If using key pair that use colon ":" in list, we don't need to use dash "-", if we use equal sign "=", a dash in mandatory
+# Docker compose will create new environmet specifcally for all service within compose file, but using custom network is accomodate
+# Using Fedora as lab server, we need to install docker-compose manually
+syntax: sudo dnf install docker-compose
+
+# To run docker-compose in detached mode
+syntax: docker-compose up -d

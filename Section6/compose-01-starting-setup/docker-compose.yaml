@@ -1,0 +1,55 @@
+version: "3.8"
+services:
+  mongodb:
+    image: "mongo"
+    volumes:
+      - data:/data/db
+    # environment:
+      # MONGO_INITDB_ROOT_USERNAME=matjangkrik
+      # MONGO_INITDB_ROOT_PASSWORD=pow3ranger
+      # - MONGO_INITDB_ROOT_USERNAME:matjangkrik
+    env_file:
+      - ./env/mongo.env
+    # networks:
+    #   - goals-net
+
+  backend:
+    image: "goals-node"
+    # build: ./backend
+    # build:
+    #   context: ./backend
+    #   dockerfile: Dockerfile
+    #   args:
+    #     - some-args01
+    ports:
+      - "80:80"
+    volumes:
+      - logs:/app/logs
+      - ./backend:/app
+      - /app/node_modules
+    env_file:
+      - ./env/backend.env
+    depends_on:
+      - mongodb
+
+  frontend:
+    image: "goals-react"
+    # build:
+    #   context: ./frontend
+    #   dockerfile: Dockerfile
+    #   args:
+    #     - some-args02
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend/src:/app/src
+    stdin_open: true
+    # tty: true
+    depends_on:
+      - backend
+
+volumes:
+  data:
+    name: "data"
+  logs:
+    name: "logs"
