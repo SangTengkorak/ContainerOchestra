@@ -1,0 +1,16 @@
+# Connect to running container interactively
+docker exec -it <CONTAINER_NAME> <OPTIONS>
+example: docker exec -it jovial_mcclintock npm init
+
+# We could gave input command when running container for the first time
+example: docker run -it node:14-alpine npm init
+
+# An example of utility container in use to install npm package within Docker container
+docker run -it --name node-util_cont -v /home/sangtengkorak/DockerKubernetes/Section7:/app node-util npm init
+
+# With ENTRYPOINT option, we only need to input the rest of syntax that had been stated in ENTRYPOINT value
+# Enbaling ENTRYPOINT option in Dockerfile, will ensure user will not gave unwanted/ destructive input to utiliy container
+exmample: docker run -it -v /home/sangtengkorak/DockerKubernetes/Section7:/app mynpm init
+
+# When using docker-compose to run utiliy container, we could specify which service we want to start
+example: docker-compose run npm init

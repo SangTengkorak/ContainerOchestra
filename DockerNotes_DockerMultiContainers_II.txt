@@ -1,0 +1,20 @@
+# Using :delegated option, Docker won't write changes in host machine instantly, but make it a batch process, so performance is better
+
+# Run composer service first to install required packaged
+syntax: docker-compose run --rm composer create-project --prefer-dist laravel/laravel .
+
+# Change src folder permissions, when using permission issue in linux
+syntax: sudo chmod -R 777 src/*
+
+# Run serveral containers using docker-compose
+syntax: docker-compose up -d server php mysql
+
+# PHP 7.4 isn't compatible anymore with latest laravel, so we use PHP 8
+
+# To simplify docker-compose up, we could couple several service to one with "depends_on" option
+
+# By default docker-compose is not evaluate built images once created, but using --build option, we could make docker-compose to evaluate dockerfiles
+syntax: docker-compose up -d --build server
+
+# In production environment, bindmount is undesirable, since it is contradict the docker concept of standalone container
+# So tweaking for copying updated snapshot that locked with container is important for production

@@ -6,3 +6,7 @@ syntax: sudo dnf install docker-compose
 
 # To run docker-compose in detached mode
 syntax: docker-compose up -d
+
+# Service name in docker-compose.yaml is not used as container
+# We could state container name in docker-compose.yaml
+syntax: container_name: <CONTAINER_NAME>
